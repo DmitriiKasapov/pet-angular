@@ -95,51 +95,66 @@
 
 ## Структура компонентов и папок
 
-Все компоненты делятся на три категории. Каждая категория имеет свою папку и свои правила.
+### Структура `src/app/`
 
-### `blocks/`
-Логические блоки-секции страницы. Крупные самодостаточные части экрана.
+```
+src/app/
+  components/        ← переиспользуемые компоненты (shared)
+    blocks/          ← крупные секции, используемые на нескольких страницах
+    modules/         ← модули с логикой, используемые в нескольких местах
+    elements/        ← атомарные UI-элементы (button, badge, input, empty-state)
+  pages/             ← страницы маршрутов
+    projects-page/
+      blocks/        ← секции этой страницы
+      modules/       ← модули этой страницы
+    project-detail-page/
+      blocks/
+      modules/
+    task-detail-page/
+      blocks/
+      modules/
+    weekly-board-page/
+      blocks/
+      modules/
+    analytics-page/
+      blocks/
+      modules/
+  core/
+    services/        ← storage.service, seed.service, analytics.service
+  data/
+    seed/            ← seed-файлы с демо-данными
+  models/            ← интерфейсы сущностей
+  features/
+    projects/services/
+    tasks/services/
+    worklog/services/
+```
 
-- Используют тег `<section>`
-- Могут включать в себя modules и elements
-- Примеры: `ProjectList`, `TaskBoard`, `AnalyticsSummary`
+### Категории компонентов
 
-### `modules/`
-Переиспользуемые или самостоятельные модули. Более мелкие, чем блоки, но содержащие собственную логику.
+**`blocks/`** — логические блоки-секции страницы. Используют тег `<section>`. Крупные, самодостаточные.  
+Примеры: `ProjectList`, `TaskBoard`, `AnalyticsSummary`
 
-- Используют семантически подходящий тег
-- Могут использовать elements
-- Примеры: `ProjectCard`, `TaskForm`, `WorklogForm`, `CommentList`
+**`modules/`** — самостоятельные модули с логикой. Формы, карточки, списки.  
+Примеры: `ProjectCard`, `TaskForm`, `WorklogForm`
 
-### `elements/`
-Атомарные переиспользуемые элементы без собственной бизнес-логики.
-
-- Примеры: `Button`, `Input`, `Badge`, `EmptyState`, `Spinner`
+**`elements/`** — атомарные элементы без бизнес-логики.  
+Примеры: `Button`, `Badge`, `EmptyState`, `Spinner`
 
 ### Правила именования корневого класса
 
-Корневой CSS-класс компонента строится по полному пути от папки `src/app/`, используя `__` как разделитель, в kebab-case.
+Корневой CSS-класс строится по пути от `src/app/`, через `__`, в kebab-case.
 
-Примеры:
-- `pages/projects-page/blocks/ProjectList.ts` → `projects-page__blocks__project-list`
-- `pages/project-detail-page/modules/TaskForm.ts` → `project-detail-page__modules__task-form`
-- `shared/elements/Badge.ts` → `shared__elements__badge`
+- `pages/projects-page/blocks/project-list/` → `projects-page__blocks__project-list`
+- `pages/project-detail-page/modules/task-form/` → `project-detail-page__modules__task-form`
+- `components/elements/badge/` → `components__elements__badge`
 
-### Правило структурирования
+### Правила размещения
 
-Каждый компонент должен лежать строго в своей категории:
-
-- Страница → `pages/<page-name>/`
-- Блок страницы → `pages/<page-name>/blocks/`
-- Модуль страницы → `pages/<page-name>/modules/`
-- Переиспользуемый элемент → `shared/elements/`
-- Переиспользуемый модуль → `shared/modules/`
-- Переиспользуемый блок → `shared/blocks/`
-
-Не допускается:
-- смешивать blocks/modules/elements в одной папке без разделения
-- класть компонент в корень страницы без подпапки категории
-- дублировать компоненты между страницами вместо переноса в shared
+- Компонент нужен только одной странице → в `pages/<page>/blocks/` или `pages/<page>/modules/`
+- Компонент нужен нескольким страницам → в `components/blocks/`, `components/modules/` или `components/elements/`
+- Нельзя класть компоненты в корень страницы без подпапки категории
+- Нельзя дублировать компонент между страницами — нужно переносить в `components/`
 
 ---
 
