@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@source "./src/app/**/*.{html,ts}";
+
+// stylelint-disable-next-line scss/at-import-partial-extension
+@import "./styles/base/theme.scss";
+@import "./styles/base/base.scss";
+@import "./styles/base/typography.scss";
+
+@import "./styles/components/buttons.scss";
+@import "./styles/components/inputs.scss";
+@import "./styles/components/badges.scss";
+@import "./styles/components/cards.scss";

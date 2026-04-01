@@ -1,0 +1,59 @@
+<div class="project-detail-page flex flex-col gap-5 p-6 max-w-3xl mx-auto w-full">
+
+  <!-- Back link -->
+  <a routerLink="/projects" class="inline-flex items-center gap-1.5 text-sm btn-ghost btn w-fit -ml-2">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All Projects
+  </a>
+
+  @if (project() === null) {
+    <!-- Not found -->
+    <div class="flex flex-col items-center gap-4 py-16 text-center">
+      <p class="text-base font-medium" style="color: var(--color-text)">Project not found</p>
+      <p class="text-sm" style="color: var(--color-text-muted)">This project does not exist or has been removed</p>
+      <a routerLink="/projects" class="btn btn-primary">Back to Projects</a>
+    </div>
+  } @else {
+    <!-- Project header -->
+    <app-project-header
+      [project]="project()!"
+      [taskCount]="allTaskSummaries().length"
+      [totalHours]="totalHours()"
+    />
+
+    <!-- Tabs -->
+    <div class="flex gap-1 border-b" style="border-color: var(--color-border)">
+      @for (tab of tabs; track tab.value) {
+        <button
+          class="px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px"
+          [style.border-color]="activeTab() === tab.value ? 'var(--color-primary)' : 'transparent'"
+          [style.color]="activeTab() === tab.value ? 'var(--color-primary)' : 'var(--color-text-muted)'"
+          (click)="activeTab.set(tab.value)"
+        >{{ tab.label }}</button>
+      }
+    </div>
+
+    <!-- Tab content -->
+    @if (activeTab() === 'tasks') {
+
+      <app-task-list
+        [summaries]="filteredSummaries()"
+        [query]="query()"
+        (searchChange)="query.set($event)"
+        (openForm)="showForm.set(true)"
+      />
+    } @else {
+      <app-project-analytics [summaries]="allTaskSummaries()" />
+    }
+
+    <!-- Task form modal -->
+    @if (showForm()) {
+      <app-task-form
+        (created)="onTaskCreated($event)"
+        (cancelled)="showForm.set(false)"
+      />
+    }
+  }
+</div>

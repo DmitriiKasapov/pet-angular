@@ -1,0 +1,103 @@
+<!-- Backdrop -->
+<div
+  class="projects-page__modules__project-form fixed inset-0 z-50 flex items-center justify-center p-4"
+  style="background: rgba(0,0,0,0.4)"
+  (click)="cancelled.emit()"
+>
+  <!-- Modal -->
+  <div
+    class="w-full max-w-md rounded-xl p-6 flex flex-col gap-5"
+    style="background: var(--color-surface); box-shadow: var(--shadow-modal)"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex items-center justify-between">
+      <h2 class="text-base font-semibold" style="color: var(--color-text)">New Project</h2>
+      <button type="button" class="btn btn-ghost btn-sm" (click)="cancelled.emit()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4" novalidate>
+
+      <!-- Name -->
+      <div class="input-field">
+        <label class="input-label" for="proj-name">Project name <span style="color:var(--color-danger)">*</span></label>
+        <input
+          id="proj-name"
+          formControlName="name"
+          class="input"
+          [class.input-error]="isInvalid('name')"
+          placeholder="e.g. Internal Portal"
+          autocomplete="off"
+        />
+        @if (isInvalid('name')) {
+          <span class="input-error-msg">Name is required (min 2 characters)</span>
+        }
+      </div>
+
+      <!-- Code -->
+      <div class="input-field">
+        <label class="input-label" for="proj-code">Project code <span style="color:var(--color-danger)">*</span></label>
+        <input
+          id="proj-code"
+          formControlName="code"
+          class="input font-mono"
+          [class.input-error]="isInvalid('code')"
+          placeholder="e.g. INT"
+          maxlength="8"
+          autocomplete="off"
+          (input)="onCodeInput($event)"
+        />
+        @if (form.controls.code.touched && form.controls.code.hasError('required')) {
+          <span class="input-error-msg">Code is required</span>
+        } @else if (form.controls.code.touched && form.controls.code.hasError('pattern')) {
+          <span class="input-error-msg">Only uppercase letters and digits, 2–8 characters</span>
+        } @else if (form.controls.code.touched && form.controls.code.hasError('duplicate')) {
+          <span class="input-error-msg">This code is already in use</span>
+        } @else {
+          <span class="input-hint">Uppercase letters and digits only, e.g. INT, ECP</span>
+        }
+      </div>
+
+      <!-- Description -->
+      <div class="input-field">
+        <label class="input-label" for="proj-desc">Description <span style="color:var(--color-text-light)">optional</span></label>
+        <textarea
+          id="proj-desc"
+          formControlName="description"
+          class="input resize-none"
+          rows="2"
+          placeholder="Short description of the project"
+        ></textarea>
+      </div>
+
+      <!-- Color -->
+      <div class="input-field">
+        <span class="input-label">Color</span>
+        <div class="flex gap-2 flex-wrap">
+          @for (color of presetColors; track color) {
+            <button
+              type="button"
+              class="w-7 h-7 rounded-full transition-transform"
+              [style.background-color]="color"
+              [style.outline]="form.value.color === color ? '2px solid ' + color : 'none'"
+              [style.outline-offset]="'2px'"
+              [attr.aria-label]="'Select color ' + color"
+              [attr.aria-pressed]="form.value.color === color"
+              (click)="form.controls.color.setValue(color)"
+            ></button>
+          }
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-2 pt-1">
+        <button type="button" class="btn btn-secondary" (click)="cancelled.emit()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create Project</button>
+      </div>
+
+    </form>
+  </div>
+</div>
