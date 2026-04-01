@@ -1,0 +1,73 @@
+<div
+  class="weekly-board-page__modules__board-worklog-form fixed inset-0 z-50 flex items-center justify-center"
+  style="background: rgba(0,0,0,0.4);"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="wbf-title"
+>
+  <div class="bg-surface rounded-xl p-6 w-full max-w-md shadow-[var(--shadow-modal)]">
+    <div class="flex items-center justify-between mb-5">
+      <h2 id="wbf-title" class="text-base font-semibold" style="color: var(--color-text)">{{ isEditMode ? 'Edit Entry' : 'Log Work' }}</h2>
+      <button type="button" class="btn btn-ghost btn-sm" aria-label="Close" (click)="cancelled.emit()">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4">
+
+      <!-- Task search -->
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium" style="color: var(--color-text-muted)" for="wbf-task">Task</label>
+        <div class="relative">
+          <input
+            id="wbf-task"
+            type="text"
+            class="input w-full"
+            placeholder="Search by code or title…"
+            [(ngModel)]="searchQuery"
+            [ngModelOptions]="{standalone: true}"
+            (input)="onSearchInput()"
+            (focus)="dropdownOpen = true"
+            (blur)="closeDropdown()"
+            autocomplete="off"
+            aria-autocomplete="list"
+          />
+          @if (dropdownOpen && filteredTasks.length > 0) {
+            <ul
+              class="absolute z-10 w-full mt-1 bg-surface border border-border rounded-lg shadow-[var(--shadow-dropdown)] max-h-48 overflow-y-auto"
+              role="listbox"
+            >
+              @for (task of filteredTasks; track task.id) {
+                <li
+                  class="px-3 py-2 text-sm cursor-pointer hover:bg-bg"
+                  style="color: var(--color-text)"
+                  role="option"
+                  (mousedown)="selectTask(task)"
+                >
+                  <span class="font-mono text-xs" style="color: var(--color-text-muted)">{{ task.code }}</span>
+                  <span class="ml-2">{{ task.title }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      </div>
+
+      <!-- Comment -->
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium" style="color: var(--color-text-muted)" for="wbf-comment">Comment (optional)</label>
+        <textarea
+          id="wbf-comment"
+          formControlName="comment"
+          rows="2"
+          placeholder="What did you work on?"
+          class="input resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-end gap-2 pt-1">
+        <button type="button" class="btn btn-secondary" (click)="cancelled.emit()">Cancel</button>
+        <button type="submit" [disabled]="!selectedTask" class="btn btn-primary">{{ isEditMode ? 'Save' : 'Add Entry' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div
+  class="weekly-board-page__modules__worklog-block"
+  [class.weekly-board-page__modules__worklog-block--dragging]="isDragging"
+  [class.weekly-board-page__modules__worklog-block--resizing]="isResizing"
+  [style.border-left-color]="taskInfo.color"
+  (mousedown)="dragStart.emit($event)"
+  (click)="$event.stopPropagation()"
+>
+  <div class="content">
+    <span class="code">{{ taskInfo.code }}</span>
+    <span class="title">{{ taskInfo.title }}</span>
+    @if (entry.comment) {
+      <span class="comment">{{ entry.comment }}</span>
+    }
+    <span class="hours">{{ entry.durationHours }}h</span>
+  </div>
+
+  <!-- Edit button -->
+  <button
+    class="btn-edit"
+    type="button"
+    aria-label="Edit entry"
+    (mousedown)="$event.stopPropagation()"
+    (click)="$event.stopPropagation(); edit.emit()"
+  >
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path
+        d="M8.5 1.5l2 2L4 10H2v-2l6.5-6.5z"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+
+  <!-- Delete button -->
+  <button
+    class="btn-delete"
+    type="button"
+    aria-label="Delete entry"
+    (mousedown)="$event.stopPropagation()"
+    (click)="$event.stopPropagation(); delete.emit()"
+  >
+    <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+      <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <!-- Resize handle -->
+  <div
+    class="resize-handle"
+    (mousedown)="$event.stopPropagation(); resizeStart.emit($event)"
+  ></div>
+</div>

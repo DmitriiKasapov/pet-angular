@@ -1,0 +1,175 @@
+/* ===== Weekly Board Grid ===== */
+
+/* --- Custom scrollbar --- */
+.weekly-board-page__blocks__board-grid {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.weekly-board-page__blocks__board-grid::-webkit-scrollbar { width: 6px; }
+.weekly-board-page__blocks__board-grid::-webkit-scrollbar-track { background: transparent; }
+.weekly-board-page__blocks__board-grid::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+.weekly-board-page__blocks__board-grid::-webkit-scrollbar-button { display: none; }
+
+.weekly-board-page__blocks__board-grid {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  user-select: none;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* --- Header row --- */
+.board-header {
+  display: flex;
+  height: 40px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.time-ruler-spacer {
+  width: 48px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+}
+
+.board-day-header {
+  flex: 1;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-right: 1px solid var(--color-border);
+}
+
+.board-day-header:last-child {
+  border-right: none;
+}
+
+.board-day-header--today {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.board-day-label {
+  flex: 1;
+  text-align: center;
+}
+
+.board-day-hours {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+/* --- Scrollable container --- */
+.board-scroll-container {
+  display: flex;
+  overflow: visible;
+}
+
+/* --- Time ruler --- */
+.time-ruler {
+  width: 48px;
+  flex-shrink: 0;
+  position: relative;
+  height: 960px; /* 24 * 40px */
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.time-label {
+  position: absolute;
+  right: 6px;
+  font-size: 10px;
+  color: var(--color-text-light);
+  transform: translateY(-50%);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* --- Columns wrapper --- */
+.board-columns {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+/* --- Single day column --- */
+.board-column {
+  flex: 1;
+  min-width: 100px;
+  position: relative;
+  height: 960px;
+  border-right: 1px solid var(--color-border);
+}
+
+.board-column:last-child {
+  border-right: none;
+}
+
+.board-column--today {
+  background: color-mix(in srgb, var(--color-primary-light) 60%, transparent);
+}
+
+/* --- Hour grid lines --- */
+.hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
+/* --- Drag preview indicator (ghost placeholder) --- */
+.drag-preview-indicator {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--color-primary);
+  background: var(--color-primary-light);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Floating drag overlay --- */
+.drag-float {
+  position: fixed;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  box-shadow: var(--shadow-modal);
+  pointer-events: none;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drag-float-code {
+  font-size: 10px;
+  opacity: 0.85;
+}
+
+.drag-float-hours {
+  font-size: 12px;
+}

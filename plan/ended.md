@@ -1,5 +1,15 @@
 # Выполненные шаги
 
+- 2026-04-01 — Шаг 7. Weekly Board Page — реализована полноценная страница еженедельного тайм-грида
+  - `worklog.service.ts`: добавлены методы `getByWeek`, `update`, `delete`
+  - `src/app/core/utils/board-utils.ts`: новый утилитарный модуль (snapToGrid, clampHours, getWeekStart, addDays, formatDate, getDayIndex, константы HOUR_HEIGHT/SNAP_HOURS/MIN_DURATION)
+  - `weekly-board-page.ts` / `.html`: полностью переписан — навигация по неделям, signals, computed weekDays/weekLabel, CRUD-обработчики
+  - `blocks/board-grid/board-grid.ts` / `.html`: компонент сетки с drag-to-move и resize-to-duration, HostListener mousemove/mouseup, ViewChildren для определения колонки по X
+  - `modules/board-worklog-form/board-worklog-form.ts` / `.html`: ReactiveForm-модалка для логирования работы (taskId, date, startHour, durationHours, comment)
+  - `src/styles/components/board.scss`: полные стили грида (ruler, columns, worklog-block, drag-float, resize-handle, drag-preview)
+  - `src/styles.scss`: импорт board.scss
+  - Билд: успешен, ошибок нет — done
+
 - 2026-04-01 — Шаг 6 (частично). Полировка UI — header, footer, search-zone
   - AppHeaderComponent (shared element) — sticky header, лого DevLog + SVG, навигация Projects / Week, active-link подсветка через routerLinkActive
   - AppFooterComponent (shared element) — тонкий footer, copyright, Dmitry Kasapov

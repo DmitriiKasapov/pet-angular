@@ -1,0 +1,130 @@
+:host {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  min-height: 20px;
+  display: block;
+}
+
+$root: '.weekly-board-page__modules__worklog-block';
+
+#{$root} {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid;
+  background-color: var(--color-surface);
+  overflow: hidden;
+  cursor: grab;
+  transition: box-shadow 0.1s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-card);
+    z-index: 2;
+  }
+
+  &--dragging {
+    cursor: grabbing;
+    pointer-events: none;
+  }
+
+  &--resizing {
+    cursor: ns-resize;
+  }
+}
+
+.content {
+  padding: 3px 28px 3px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.code {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.title {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.comment {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.hours {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-top: auto;
+  line-height: 1.2;
+}
+
+/* --- Action buttons --- */
+.btn-edit,
+.btn-delete {
+  position: absolute;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.btn-edit {
+  right: 19px;
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    background: var(--color-primary);
+    color: #fff;
+  }
+}
+
+.btn-delete {
+  right: 3px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.12);
+  color: var(--color-text);
+
+  &:hover {
+    background: var(--color-danger);
+    color: #fff;
+  }
+}
+
+/* --- Resize handle --- */
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: ns-resize;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}

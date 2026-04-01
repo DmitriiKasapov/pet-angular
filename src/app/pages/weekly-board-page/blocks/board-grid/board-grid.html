@@ -1,0 +1,84 @@
+<div class="weekly-board-page__blocks__board-grid">
+  <!-- Day headers -->
+  <div class="board-header">
+    <div class="time-ruler-spacer"></div>
+    @for (day of weekDays; track day.dayIndex) {
+      <div class="board-day-header" [class.board-day-header--today]="day.dateStr === todayStr">
+        <span class="board-day-label">{{ day.label }}</span>
+        <span class="board-day-hours">{{ DAILY_NORM }}/{{ hoursForDay(day.dayIndex) }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Scrollable area -->
+  <div class="board-scroll-container">
+    <!-- Time ruler -->
+    <div class="time-ruler">
+      @for (h of hours; track h) {
+        @if (h < 24) {
+          <div class="time-label" [style.top.px]="h * HOUR_HEIGHT">
+            {{ h.toString().padStart(2, '0') }}:00
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Day columns -->
+    <div class="board-columns">
+      @for (day of weekDays; track day.dayIndex) {
+        <div
+          class="board-column"
+          #columnEl
+          [class.board-column--today]="day.dateStr === todayStr"
+          (click)="onColumnClick($event, day)"
+        >
+          <!-- Hour grid lines -->
+          @for (h of hours; track h) {
+            <div
+              class="hour-line"
+              [class.hour-line--half]="false"
+              [style.top.px]="h * HOUR_HEIGHT"
+            ></div>
+          }
+
+          <!-- Drag-preview indicator (ghost block) -->
+          @if (dragPreviewForDay(day.dayIndex) !== null) {
+            <div
+              class="drag-preview-indicator"
+              [style.top.px]="dragPreviewForDay(day.dayIndex)! * HOUR_HEIGHT"
+              [style.height.px]="dragState()!.originalDurationHours * HOUR_HEIGHT"
+            ></div>
+          }
+
+          <!-- Worklog blocks -->
+          @for (entry of entriesForDay(day.dayIndex); track entry.id) {
+            <app-worklog-block
+              #blockEl
+              [entry]="entry"
+              [taskInfo]="getTaskInfo(entry.taskId)"
+              [isDragging]="isDragging(entry.id)"
+              [isResizing]="isResizing(entry.id)"
+              [style.top.px]="blockTop(entry)"
+              [style.height.px]="blockHeight(entry)"
+              (dragStart)="onBlockDragStart(entry, $event, blockEl.el)"
+              (resizeStart)="onBlockResizeStart(entry, $event)"
+              (edit)="entryEdit.emit(entry)"
+              (delete)="entryDeleted.emit(entry.id)"
+            />
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Floating drag overlay -->
+  @if (dragState(); as ds) {
+    @let dragEntry = getDragEntry();
+    @if (dragEntry) {
+      <div class="drag-float" [ngStyle]="dragFloatStyle()">
+        <span class="drag-float-code">{{ getTaskInfo(dragEntry.taskId).code }}</span>
+        <span class="drag-float-hours">{{ dragEntry.durationHours }}h</span>
+      </div>
+    }
+  }
+</div>
