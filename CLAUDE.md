@@ -154,6 +154,101 @@ src/app/
 
 ---
 
+## Стили и Tailwind CSS
+
+### Структура CSS
+
+Стили разбиты по папкам внутри `src/styles/`:
+
+```
+src/styles/
+  base/
+    theme.css        ← все дизайн-токены в @theme {}
+    fonts.css        ← подключение шрифтов через @font-face
+    base.css         ← сброс и базовые стили HTML-элементов
+    typography.css   ← стили заголовков и текста
+  utilities/
+    layout.css       ← утилиты для layout (если нужны)
+  components/
+    buttons.css      ← .btn, .btn-primary, .btn-secondary и т.д.
+    inputs.css       ← .input, состояния, ошибки
+    badges.css       ← .badge и варианты статусов
+    cards.css        ← .card базовый стиль
+```
+
+Главный файл `src/styles.scss` импортирует всё в нужном порядке:
+
+```scss
+@import "tailwindcss";
+
+@import "./styles/base/theme.css";
+@import "./styles/base/fonts.css";
+@import "./styles/base/base.css";
+@import "./styles/base/typography.css";
+
+@import "./styles/components/buttons.css";
+@import "./styles/components/inputs.css";
+@import "./styles/components/badges.css";
+@import "./styles/components/cards.css";
+```
+
+### Дизайн-токены (@theme)
+
+Все токены объявляются в `@theme {}` — это Tailwind v4-подход. Никаких magic-значений в шаблонах.
+
+```css
+@theme {
+  /* Colors — semantic */
+  --color-primary: #3b5bdb;
+  --color-primary-hover: #364fc7;
+  --color-surface: #ffffff;
+  --color-bg: #f8f9fa;
+  --color-border: #e9ecef;
+  --color-text: #212529;
+  --color-text-muted: #868e96;
+
+  /* Status colors */
+  --color-status-planning: #74c0fc;
+  --color-status-progress: #ffa94d;
+  --color-status-done: #69db7c;
+
+  /* Typography */
+  --font-sans: Arial, system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.08);
+}
+```
+
+### Компонентные классы
+
+Переиспользуемые классы пишутся через `@layer components` в отдельных файлах:
+
+```css
+@layer components {
+  .btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors; }
+  .btn-primary { @apply bg-primary text-white hover:bg-primary-hover; }
+  .btn-secondary { @apply bg-transparent border border-border text-text hover:bg-bg; }
+  .btn-ghost { @apply bg-transparent text-text-muted hover:text-text hover:bg-bg; }
+}
+```
+
+### Принципы
+
+- **Никаких inline-стилей** — только Tailwind-классы или компонентные классы
+- **Никаких магических значений** — только токены из `@theme`
+- **Варианты через match/object** в Angular-компонентах, не условные классы в шаблоне
+- **Кастомный grid не используется** — приложение, не маркетинговый сайт; `flex` и стандартный `grid` достаточно
+
+### Дизайн-принципы
+
+- Стиль: **минималистичный, деловой, user-friendly**
+- Шрифт: **Arial / system-ui** — без кастомных шрифтов
+- Без декоративных эффектов и анимаций без необходимости
+- Единый визуальный стиль во всём приложении: кнопки, инпуты, карточки, статусы, пустые состояния
+
+---
+
 ## Кодовые правила
 
 1. Писать код чисто и последовательно.

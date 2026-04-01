@@ -8,13 +8,14 @@
 ---
 
 ## Шаг 1. Инициализация проекта и репозиторий
-- [ ] Создать Angular-проект (standalone, без SSR, с routing)
-- [ ] Подключить Tailwind CSS
-- [ ] Подключить Angular CDK
-- [ ] Настроить базовую структуру папок: components/blocks/modules/elements, pages, core/services, data/seed, models
-- [ ] Инициализировать git-репозиторий
-- [ ] Создать репозиторий на GitHub и сделать первый push
-- [ ] Зафиксировать результат в ended.md
+- [x] Создать Angular-проект (standalone, без SSR, с routing)
+- [x] Подключить Tailwind CSS
+- [x] Подключить Angular CDK
+- [x] Настроить базовую структуру папок: components/blocks/modules/elements, pages, core/services, data/seed, models
+- [x] Настроить CSS-архитектуру: @theme токены, base стили, компонентные классы
+- [x] Инициализировать git-репозиторий
+- [x] Создать репозиторий на GitHub и сделать первый push
+- [x] Зафиксировать результат в ended.md
 
 ---
 

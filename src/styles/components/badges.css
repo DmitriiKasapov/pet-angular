@@ -1,0 +1,31 @@
+@layer components {
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+  }
+
+  /* Task statuses */
+  .badge-planning {
+    background-color: var(--color-status-planning-bg);
+    color: var(--color-status-planning-text);
+  }
+
+  .badge-progress {
+    background-color: var(--color-status-progress-bg);
+    color: var(--color-status-progress-text);
+  }
+
+  .badge-done {
+    background-color: var(--color-status-done-bg);
+    color: var(--color-status-done-text);
+  }
+
+  /* Generic */
+  .badge-neutral {
+    @apply bg-gray-100 text-gray-600;
+  }
+
+  .badge-primary {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+}
