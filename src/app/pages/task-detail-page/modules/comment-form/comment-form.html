@@ -1,0 +1,11 @@
+<div class="task-detail-page__modules__comment-form">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-2">
+    <textarea
+      formControlName="text"
+      rows="3"
+      placeholder="Add a comment..."
+      class="input text-sm resize-none"
+    ></textarea>
+    <button type="submit" [disabled]="form.invalid" class="btn btn-primary text-sm w-full sm:w-auto sm:self-end">Post</button>
+  </form>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { Task } from '../../models/task.model';
+import { Task, TaskStatus } from '../../models/task.model';
 
 const KEY = 'worklog-tasks';
 
@@ -32,5 +32,10 @@ export class TasksService {
     };
     this.storage.setItem(KEY, [...this.getAll(), task]);
     return task;
+  }
+
+  updateStatus(id: string, status: TaskStatus): void {
+    const tasks = this.getAll().map(t => t.id === id ? { ...t, status } : t);
+    this.storage.setItem(KEY, tasks);
   }
 }

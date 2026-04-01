@@ -1,0 +1,29 @@
+<div class="task-detail-page__modules__worklog-form border border-border rounded-lg p-4 bg-bg mb-6">
+  <h3 class="text-sm font-semibold text-text mb-3">Log Work</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-wrap gap-3 items-end">
+    <div class="flex flex-col gap-1 min-w-[140px]">
+      <label class="text-xs text-text-muted" for="wl-date">Date</label>
+      <input id="wl-date" type="date" formControlName="date" class="input text-sm" />
+    </div>
+
+    <div class="flex flex-col gap-1 w-24">
+      <label class="text-xs text-text-muted" for="wl-start">Start (h)</label>
+      <input id="wl-start" type="number" formControlName="startHour" min="0" max="23" step="0.5" class="input text-sm" />
+    </div>
+
+    <div class="flex flex-col gap-1 w-28">
+      <label class="text-xs text-text-muted" for="wl-duration">Duration (h)</label>
+      <input id="wl-duration" type="number" formControlName="durationHours" min="0.5" max="24" step="0.5" class="input text-sm" />
+    </div>
+
+    <div class="flex flex-col gap-1 flex-1 min-w-[160px]">
+      <label class="text-xs text-text-muted" for="wl-comment">Comment</label>
+      <input id="wl-comment" type="text" formControlName="comment" placeholder="Optional note" class="input text-sm" />
+    </div>
+
+    <div class="flex gap-2">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-primary text-sm">Add</button>
+      <button type="button" (click)="cancelled.emit()" class="btn btn-secondary text-sm">Cancel</button>
+    </div>
+  </form>
+</div>

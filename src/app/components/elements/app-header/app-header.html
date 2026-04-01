@@ -1,0 +1,28 @@
+<header class="components__elements__app-header">
+  <div class="header-inner">
+    <!-- Logo -->
+    <a routerLink="/projects" class="header-logo" aria-label="DevLog home">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="8" height="8" rx="2" fill="var(--color-primary)"/>
+        <rect x="12" y="2" width="8" height="8" rx="2" fill="var(--color-primary)" opacity="0.5"/>
+        <rect x="2" y="12" width="8" height="8" rx="2" fill="var(--color-primary)" opacity="0.5"/>
+        <rect x="12" y="12" width="8" height="8" rx="2" fill="var(--color-primary)"/>
+      </svg>
+      <span>DevLog</span>
+    </a>
+
+    <!-- Nav -->
+    <nav aria-label="Main navigation">
+      <a
+        routerLink="/projects"
+        routerLinkActive="nav-link--active"
+        class="nav-link"
+      >Projects</a>
+      <a
+        routerLink="/board"
+        routerLinkActive="nav-link--active"
+        class="nav-link"
+      >Week</a>
+    </nav>
+  </div>
+</header>

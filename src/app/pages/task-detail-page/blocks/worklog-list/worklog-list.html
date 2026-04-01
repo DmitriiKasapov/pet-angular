@@ -1,0 +1,29 @@
+<section class="task-detail-page__blocks__worklog-list">
+  <div class="flex items-center justify-between mb-3">
+    <h2 class="text-base font-semibold text-text">Work Log</h2>
+    @if (entries.length > 0) {
+      <span class="text-sm text-text-muted">Total: <span class="font-medium text-text">{{ totalHours }}h</span></span>
+    }
+  </div>
+
+  @if (entries.length === 0) {
+    <p class="text-sm text-text-muted py-4 text-center">No work logged yet.</p>
+  } @else {
+    <div class="divide-y divide-border border border-border rounded-lg overflow-hidden">
+      @for (entry of entries; track entry.id) {
+        <div class="flex items-start gap-4 px-4 py-3 bg-surface hover:bg-bg transition-colors">
+          <div class="flex-shrink-0 text-center min-w-[56px]">
+            <div class="text-xs text-text-muted">{{ entry.date }}</div>
+            <div class="text-sm font-medium text-text mt-0.5">{{ entry.durationHours }}h</div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs text-text-muted">Start: {{ formatTime(entry.startHour) }}</div>
+            @if (entry.comment) {
+              <p class="text-sm text-text mt-0.5">{{ entry.comment }}</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

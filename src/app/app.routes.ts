@@ -12,4 +12,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/project-detail-page/project-detail-page').then(m => m.ProjectDetailPageComponent),
   },
+  {
+    path: 'board',
+    loadComponent: () =>
+      import('./pages/weekly-board-page/weekly-board-page').then(m => m.WeeklyBoardPageComponent),
+  },
+  {
+    path: 'tasks/:id',
+    loadComponent: () =>
+      import('./pages/task-detail-page/task-detail-page').then(m => m.TaskDetailPageComponent),
+  },
 ];

@@ -15,4 +15,10 @@ export class WorklogService {
   getByTask(taskId: string): WorklogEntry[] {
     return this.getAll().filter(e => e.taskId === taskId);
   }
+
+  create(data: Omit<WorklogEntry, 'id'>): WorklogEntry {
+    const entry: WorklogEntry = { ...data, id: crypto.randomUUID() };
+    this.storage.setItem(KEY, [...this.getAll(), entry]);
+    return entry;
+  }
 }

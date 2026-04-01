@@ -1,5 +1,32 @@
 # Выполненные шаги
 
+- 2026-04-01 — Шаг 6 (частично). Полировка UI — header, footer, search-zone
+  - AppHeaderComponent (shared element) — sticky header, лого DevLog + SVG, навигация Projects / Week, active-link подсветка через routerLinkActive
+  - AppFooterComponent (shared element) — тонкий footer, copyright, Dmitry Kasapov
+  - app.html / app.ts обновлены: layout flex-column, header + main + footer
+  - base.scss: body/app-root/app-main — flex column, min-h-100vh
+  - layout.scss: стили .header-inner, .header-logo, .nav-link, .footer-inner, .search-zone
+  - styles.scss: импорт layout.scss
+  - search-zone (border-top + border-bottom) применён в project-list.html и task-list.html
+  - /board маршрут добавлен (заглушка WeeklyBoardPageComponent)
+  - Сборка чистая
+  - Статус: частично done (остаётся адаптивность и проверка пустых состояний)
+
+- 2026-04-01 — Шаг 5. Страница задачи — /tasks/:id
+  - TaskDetailPageComponent — сигналы, computed totalHours
+  - TaskHeaderComponent (block) — код, название, статус badge, описание, estimate, дата создания, смена статуса через select
+  - WorklogListComponent (block) — список worklog-записей с форматом времени, суммарные часы
+  - CommentsSectionComponent (block) — список комментариев задачи
+  - WorklogFormComponent (module) — форма добавления worklog (дата, startHour, durationHours, comment), ReactiveFormsModule, inject(FormBuilder)
+  - CommentFormComponent (module) — форма добавления комментария, textarea + Post
+  - tasks.service.ts — добавлен метод updateStatus()
+  - worklog.service.ts — добавлен метод create()
+  - comments.service.ts — новый сервис (getByTask, create)
+  - app.routes.ts — добавлен маршрут /tasks/:id (lazy)
+  - Обработка 404: "Task not found" + ссылка назад
+  - Сборка чистая
+  - Статус: done
+
 - 2026-04-01 — Шаг 4. Страница проекта — /projects/:id
   - ProjectDetailPageComponent — сигналы, computed summaries, табы tasks/analytics
   - ProjectHeaderComponent (block) — название, код, цвет, описание, кол-во задач, общие часы
@@ -10,6 +37,19 @@
   - tasks.service.ts — добавлен метод create() с авто-генерацией кода (PROJECT-001, 002...)
   - Обработка 404: "Project not found" + кнопка назад
   - Сборка чистая
+  - Статус: done
+
+- 2026-04-01 — Настройка Tailwind CSS v4 + Angular 21
+  - Переход styles.css → styles.scss, обновлён angular.json
+  - postcss.config.json (Angular читает только JSON-формат)
+  - @source "./src/app/**/*.{html,ts}" для сканирования шаблонов
+  - Исправлен cards.scss (@apply card убран, стили продублированы)
+  - Статус: done
+
+- 2026-04-01 — Правки UI по итогам тестирования
+  - Список проектов: карточки → простые строки (код + название + описание)
+  - Название проекта выделено жирным
+  - На странице проекта: поиск + кнопка отделены бордером от списка задач
   - Статус: done
 
 - 2026-04-01 — Шаг 3. Каталог проектов — страница /projects
