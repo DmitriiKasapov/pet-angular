@@ -120,14 +120,10 @@ src/app/
       blocks/
       modules/
   core/
-    services/        ← storage.service, seed.service, analytics.service
+    services/        ← все сервисы: storage, seed, analytics, projects, tasks, worklog
   data/
     seed/            ← seed-файлы с демо-данными
   models/            ← интерфейсы сущностей
-  features/
-    projects/services/
-    tasks/services/
-    worklog/services/
 ```
 
 ### Категории компонентов

@@ -11,7 +11,7 @@
 - [ ] Создать Angular-проект (standalone, без SSR, с routing)
 - [ ] Подключить Tailwind CSS
 - [ ] Подключить Angular CDK
-- [ ] Настроить базовую структуру папок согласно правилам (core/data/models/features/pages/shared с подпапками blocks/modules/elements)
+- [ ] Настроить базовую структуру папок: components/blocks/modules/elements, pages, core/services, data/seed, models
 - [ ] Инициализировать git-репозиторий
 - [ ] Создать репозиторий на GitHub и сделать первый push
 - [ ] Зафиксировать результат в ended.md
