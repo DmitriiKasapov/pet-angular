@@ -1,0 +1,14 @@
+<section class="analytics-page__blocks__days-summary">
+  <h2 class="summary-section__title">By day</h2>
+  <div class="summary-rows">
+    @for (day of days; track day.dayIndex) {
+      <div class="summary-row" [class.summary-row--empty]="day.hours === 0">
+        <span class="summary-row__label">{{ day.label }}</span>
+        <div class="summary-row__bar-wrap">
+          <div class="summary-row__bar" [style.width.%]="barWidth(day.hours)"></div>
+        </div>
+        <span class="summary-row__value">{{ day.hours }}h</span>
+      </div>
+    }
+  </div>
+</section>

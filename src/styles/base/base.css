@@ -67,3 +67,10 @@ ol {
   }
 }
 
+/* Reduce page padding on small screens */
+@media (max-width: 640px) {
+  .p-6 { padding: 1rem !important; }
+  .px-4 { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+  .py-6 { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+}
+

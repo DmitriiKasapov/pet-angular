@@ -1,5 +1,37 @@
 # Выполненные шаги
 
+- 2026-04-01 — Шаг 6 (финал). Полировка UI — адаптивность + пустые состояния
+  - `layout.css`: header-inner расширен до 1200px (совпадает с доской), мобильный паддинг, логотип без текста < 640px
+  - `analytics.css`: мобильная адаптация — уменьшены паддинги, таблица задач скрывает колонки Project/Status
+  - `weekly-board-page.html`: доска обёрнута в `overflow-x: auto` с `min-width: 600px` для мобильного скролла
+  - `weekly-board-page.ts`: добавлен `isCurrentWeek` computed + `goToCurrentWeek()`, кнопка Today в хедере доски
+  - `base.css`: responsive паддинги для страниц на мобиле (< 640px)
+  - `worklog-list.html`: пустое состояние улучшено — заголовок + подсказка в рамке
+  - `comments-section.html`: пустое состояние улучшено — заголовок + подсказка в рамке
+  - `app.routes.ts`: дефолтный маршрут изменён на /board
+  - `app-header.html`: Week перемещён первым в навигации
+  - Статус: done
+
+
+- 2026-04-01 — Шаг 8. Analytics Page — /analytics
+  - `analytics.service.ts`: `getWeekAnalytics()` — возвращает totalHours, entryCount, days[7], projects[], tasks[]
+  - `analytics-page.ts / .html`: навигация по неделям через signals, computed analytics/weekLabel/isCurrentWeek
+  - `blocks/week-summary`: общий итог (часы + записи)
+  - `blocks/days-summary`: 7 дней с progress-bar (CSS-полоски)
+  - `blocks/projects-summary`: проекты — название + часы сверху, цветная полоска снизу, сортировка по убыванию
+  - `blocks/tasks-summary`: таблица задач (код, название, проект, статус, часы), сортировка по убыванию
+  - `styles/components/analytics.css`: полные стили страницы
+  - `app.routes.ts`: маршрут /analytics (lazy)
+  - `app-header.html`: ссылка Analytics в навигацию
+  - Правки UI: полоска проекта перенесена под строку названия/часов
+  - Глобальные стили переведены с .scss на .css (Tailwind v4 совместимость), удалены .scss партиалы
+  - `worklog-block` вынесен в отдельный компонент `pages/weekly-board-page/modules/worklog-block/`
+  - Статус: done
+  - `app.routes.ts`: маршрут /analytics (lazy)
+  - `app-header.html`: ссылка Analytics в навигацию
+  - Статус: done
+
+
 - 2026-04-01 — Шаг 7. Weekly Board Page — реализована полноценная страница еженедельного тайм-грида
   - `worklog.service.ts`: добавлены методы `getByWeek`, `update`, `delete`
   - `src/app/core/utils/board-utils.ts`: новый утилитарный модуль (snapToGrid, clampHours, getWeekStart, addDays, formatDate, getDayIndex, константы HOUR_HEIGHT/SNAP_HOURS/MIN_DURATION)

@@ -7,7 +7,10 @@
   </div>
 
   @if (entries.length === 0) {
-    <p class="text-sm text-text-muted py-4 text-center">No work logged yet.</p>
+    <div class="py-6 text-center border border-border rounded-lg bg-bg">
+      <p class="text-sm font-medium" style="color: var(--color-text)">No work logged yet</p>
+      <p class="text-xs mt-1" style="color: var(--color-text-muted)">Log time on the Week board or add an entry below</p>
+    </div>
   } @else {
     <div class="divide-y divide-border border border-border rounded-lg overflow-hidden">
       @for (entry of entries; track entry.id) {

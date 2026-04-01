@@ -51,6 +51,8 @@ export class WeeklyBoardPageComponent implements OnInit {
   tasks = computed<Task[]>(() => this.tasksService.getAll());
   projects = computed<Project[]>(() => this.projectsService.getAll());
 
+  isCurrentWeek = computed(() => formatDate(this.weekStart()) === formatDate(getWeekStart(new Date())));
+
   weekLabel = computed(() => {
     const start = this.weekStart();
     const end = addDays(start, 6);
@@ -74,6 +76,11 @@ export class WeeklyBoardPageComponent implements OnInit {
 
   nextWeek(): void {
     this.weekStart.set(addDays(this.weekStart(), 7));
+    this.loadEntries();
+  }
+
+  goToCurrentWeek(): void {
+    this.weekStart.set(getWeekStart(new Date()));
     this.loadEntries();
   }
 

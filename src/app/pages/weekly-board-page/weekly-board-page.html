@@ -1,24 +1,31 @@
 <div class="weekly-board-page max-w-[1200px] mx-auto px-4 py-6">
   <!-- Header -->
-  <div class="flex items-center justify-between mb-4">
+  <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
     <div class="flex items-center gap-2">
       <button class="btn btn-secondary btn-sm" (click)="prevWeek()">← Prev</button>
       <span class="text-sm font-medium px-2" style="color: var(--color-text)">{{ weekLabel() }}</span>
       <button class="btn btn-secondary btn-sm" (click)="nextWeek()">Next →</button>
     </div>
+    @if (!isCurrentWeek()) {
+      <button class="btn btn-ghost btn-sm" (click)="goToCurrentWeek()">Today</button>
+    }
   </div>
 
-  <!-- Board grid -->
-  <app-board-grid
-    [entries]="entries()"
-    [tasks]="tasks()"
-    [projects]="projects()"
-    [weekDays]="weekDays()"
-    (entryUpdated)="onEntryUpdated($event)"
-    (entryDeleted)="onEntryDeleted($event)"
-    (entryEdit)="onEntryEdit($event)"
-    (columnClick)="onColumnClick($event)"
-  />
+  <!-- Board grid (scrollable on mobile) -->
+  <div class="overflow-x-auto">
+    <div style="min-width: 600px">
+      <app-board-grid
+        [entries]="entries()"
+        [tasks]="tasks()"
+        [projects]="projects()"
+        [weekDays]="weekDays()"
+        (entryUpdated)="onEntryUpdated($event)"
+        (entryDeleted)="onEntryDeleted($event)"
+        (entryEdit)="onEntryEdit($event)"
+        (columnClick)="onColumnClick($event)"
+      />
+    </div>
+  </div>
 
   <!-- Create form -->
   @if (showForm()) {

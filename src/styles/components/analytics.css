@@ -1,0 +1,281 @@
+/* ===== Analytics Page ===== */
+
+.analytics-page__root {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.analytics-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.analytics-page__week-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analytics-page__week-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  min-width: 200px;
+  text-align: center;
+}
+
+/* Empty state */
+.analytics-page__empty {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.analytics-page__empty-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.analytics-page__empty-sub {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+
+  & a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}
+
+/* ===== Week Summary ===== */
+.analytics-page__blocks__week-summary {
+  display: flex;
+  gap: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.week-summary__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.week-summary__value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.week-summary__label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Shared section styles ===== */
+.analytics-page__blocks__days-summary,
+.analytics-page__blocks__projects-summary,
+.analytics-page__blocks__tasks-summary {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.summary-section__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+/* ===== Summary rows (days + projects) ===== */
+.summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 40px;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.project-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.project-row__top {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.project-row__name {
+  flex: 1;
+  font-size: 0.8125rem;
+  color: var(--color-text);
+}
+
+.summary-row--empty .summary-row__value {
+  color: var(--color-text-light);
+}
+
+.summary-row__label {
+  font-size: 0.8125rem;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.summary-row__code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.summary-row__color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.summary-row__bar-wrap {
+  height: 6px;
+  background: var(--color-bg);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.summary-row__bar {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+  min-width: 2px;
+}
+
+.summary-row__value {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+}
+
+/* ===== Tasks table ===== */
+.summary-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.summary-table__head {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px 80px 50px;
+  gap: 0.75rem;
+  padding: 0 0 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.summary-table__row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px 80px 50px;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+  font-size: 0.8125rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.summary-table__code {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.summary-table__title {
+  color: var(--color-text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.summary-table__project {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.summary-table__hours {
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: right;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .analytics-page__root {
+    padding: 1.25rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .analytics-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .analytics-page__week-label {
+    min-width: 0;
+    text-align: center;
+  }
+
+  .summary-row {
+    grid-template-columns: 70px 1fr 36px;
+    gap: 0.5rem;
+  }
+
+  /* Tasks table: hide Project and Status columns on mobile */
+  .summary-table__head,
+  .summary-table__row {
+    grid-template-columns: 70px 1fr 44px;
+    gap: 0.5rem;
+  }
+
+  .summary-table__head span:nth-child(3),
+  .summary-table__head span:nth-child(4),
+  .summary-table__row .summary-table__project,
+  .summary-table__row .badge {
+    display: none;
+  }
+}

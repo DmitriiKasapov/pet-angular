@@ -1,0 +1,21 @@
+<section class="analytics-page__blocks__tasks-summary">
+  <h2 class="summary-section__title">By task</h2>
+  <div class="summary-table">
+    <div class="summary-table__head">
+      <span>Code</span>
+      <span>Task</span>
+      <span>Project</span>
+      <span>Status</span>
+      <span>Hours</span>
+    </div>
+    @for (task of tasks; track task.taskId) {
+      <div class="summary-table__row">
+        <span class="summary-table__code">{{ task.code }}</span>
+        <span class="summary-table__title">{{ task.title }}</span>
+        <span class="summary-table__project">{{ task.projectCode }}</span>
+        <span class="badge badge-{{ task.status }}">{{ task.status }}</span>
+        <span class="summary-table__hours">{{ task.hours }}h</span>
+      </div>
+    }
+  </div>
+</section>
