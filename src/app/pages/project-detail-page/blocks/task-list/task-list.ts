@@ -2,6 +2,7 @@ import { Component, computed, EventEmitter, Input, OnChanges, Output, signal } f
 import { TaskCardComponent } from '../../modules/task-card/task-card';
 import { EmptyStateComponent } from '../../../../components/elements/empty-state/empty-state';
 import { PaginationComponent } from '../../../../components/elements/pagination/pagination';
+import { SearchInputComponent } from '../../../../components/elements/search-input/search-input';
 import { TaskSummary } from '../../project-detail-page.types';
 
 const PAGE_SIZE = 6;
@@ -9,7 +10,7 @@ const PAGE_SIZE = 6;
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [TaskCardComponent, EmptyStateComponent, PaginationComponent],
+  imports: [TaskCardComponent, EmptyStateComponent, PaginationComponent, SearchInputComponent],
   templateUrl: './task-list.html',
 })
 export class TaskListComponent implements OnChanges {
@@ -28,9 +29,5 @@ export class TaskListComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.page.set(1);
-  }
-
-  onSearch(event: Event): void {
-    this.searchChange.emit((event.target as HTMLInputElement).value);
   }
 }

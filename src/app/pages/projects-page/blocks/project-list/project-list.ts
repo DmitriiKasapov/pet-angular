@@ -2,6 +2,7 @@ import { Component, computed, EventEmitter, Input, OnChanges, Output, signal } f
 import { ProjectCardComponent } from '../../modules/project-card/project-card';
 import { EmptyStateComponent } from '../../../../components/elements/empty-state/empty-state';
 import { PaginationComponent } from '../../../../components/elements/pagination/pagination';
+import { SearchInputComponent } from '../../../../components/elements/search-input/search-input';
 import { ProjectSummary } from '../../projects-page.types';
 
 const PAGE_SIZE = 6;
@@ -9,7 +10,7 @@ const PAGE_SIZE = 6;
 @Component({
   selector: 'app-project-list',
   standalone: true,
-  imports: [ProjectCardComponent, EmptyStateComponent, PaginationComponent],
+  imports: [ProjectCardComponent, EmptyStateComponent, PaginationComponent, SearchInputComponent],
   templateUrl: './project-list.html',
 })
 export class ProjectListComponent implements OnChanges {
@@ -28,9 +29,5 @@ export class ProjectListComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.page.set(1);
-  }
-
-  onSearch(event: Event): void {
-    this.searchChange.emit((event.target as HTMLInputElement).value);
   }
 }

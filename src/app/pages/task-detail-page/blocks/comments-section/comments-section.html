@@ -1,5 +1,5 @@
 <section class="task-detail-page__blocks__comments-section mt-6 pt-6 border-t border-border">
-  <h2 class="text-base font-semibold text-text mb-4">Comments</h2>
+  <h2 class="text-base font-semibold mb-4" style="color: var(--color-text)">Comments</h2>
 
   @if (comments.length === 0) {
     <div class="py-5 text-center border border-border rounded-lg bg-bg">
@@ -9,31 +9,11 @@
   } @else {
     <div class="flex flex-col gap-3">
       @for (comment of paged(); track comment.id) {
-        <div class="border border-border rounded-lg px-4 py-3 bg-surface">
-
-          @if (editingId() === comment.id) {
-            <textarea
-              class="input text-sm resize-none w-full"
-              rows="3"
-              [ngModel]="editingText()"
-              (ngModelChange)="editingText.set($event)"
-            ></textarea>
-            <div class="flex gap-2 mt-2">
-              <button class="btn btn-primary btn-sm" (click)="saveEdit(comment)">Save</button>
-              <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
-            </div>
-          } @else {
-            <p class="text-sm text-text leading-relaxed">{{ comment.text }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-text-muted">{{ comment.createdAt }}</span>
-              <div class="flex gap-1">
-                <button class="btn btn-ghost btn-sm" (click)="startEdit(comment)" aria-label="Edit comment">Edit</button>
-                <button class="btn btn-ghost btn-sm" style="color: var(--color-danger)" (click)="delete(comment)" aria-label="Delete comment">Delete</button>
-              </div>
-            </div>
-          }
-
-        </div>
+        <app-comment-card
+          [comment]="comment"
+          (saved)="onSaved(comment, $event)"
+          (deleted)="onDeleted(comment)"
+        />
       }
     </div>
 

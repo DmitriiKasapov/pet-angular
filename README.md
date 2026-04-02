@@ -1,59 +1,83 @@
-# Worklog
+# DevLog — Time Tracking App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+A single-page application for tracking work time and managing tasks across projects.  
+Built with Angular 19 as a portfolio project — no backend, no database, runs entirely in the browser.
 
-## Development server
+---
 
-To start a local development server, run:
+## Quick Start
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**Requirements:** Node.js 18+, npm
 
 ```bash
-ng generate component component-name
+# Clone the repository
+git clone https://github.com/DmitriiKasapov/pet-angular.git
+cd pet-angular
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open the URL shown in the terminal in your browser.
 
-```bash
-ng generate --help
-```
+> On first launch the app automatically loads demo data: 3 projects, 11 tasks, 15 worklog entries and 5 comments — so you can explore all features right away.
 
-## Building
+---
 
-To build the project run:
+## Data Storage
 
-```bash
-ng build
-```
+All data is stored in **localStorage** — nothing is sent to any server.  
+To reset to the original demo data, open DevTools → Application → Local Storage → clear all keys starting with `worklog-`.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Tech Stack
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- **Angular 19** — standalone components, signals, lazy-loaded routes
+- **TypeScript** — strict typing throughout
+- **Tailwind CSS v4** — utility-first styling with design tokens
+- **Reactive Forms** — form validation and control
+- **No external UI libraries** — all components are handcrafted
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## Features
 
-For end-to-end (e2e) testing, run:
+### Week Board `/board` ← default page
+- Visual time grid for the current week (Mon–Sun)
+- All logged work entries displayed as blocks on the grid
+- **Click any column** to log a new work entry for that day
+- **Drag blocks** between days to move an entry
+- **Resize blocks** by dragging the bottom edge to adjust duration
+- **Edit or delete** any entry via hover controls
+- Navigate between weeks with Prev / Next; jump back with Today
 
-```bash
-ng e2e
-```
+### Projects `/projects`
+- View all projects as a list with name, code and description
+- **Create a project** — name, short code (e.g. `INT`), description, color
+- **Search** projects by name, code, or task name
+- Click a project to open its detail page
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Project detail `/projects/:id`
+- **Tasks tab** — list of all tasks with status badges and logged hours
+  - Search tasks by code or title
+  - **Create a task** — title, description, status, estimated hours
+  - Click a task to open its detail page
+- **Analytics tab** — hours logged per task with progress bars, sorted by most time spent
 
-## Additional Resources
+### Task detail `/tasks/:id`
+- Full task info: code, title, description, status, estimate
+- **Change status** — Planning → In Progress → Done
+- **Log work** — date, start time, duration, optional comment
+- Work log list with total hours
+- **Comments** — add, edit, delete comments on the task
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Analytics `/analytics`
+- Weekly summary: total hours and entry count
+- **Hours by day** — bar chart for each day of the week
+- **Hours by project** — colored bars per project, sorted by most time
+- **Hours by task** — table with task code, title, project, status and hours
+- Navigate between weeks; resets to current week with Today

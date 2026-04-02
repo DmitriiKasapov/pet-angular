@@ -1,27 +1,28 @@
 <div class="analytics-page__root">
+
   <!-- Page header -->
   <div class="analytics-page__header">
     <h1>Analytics</h1>
-    <div class="analytics-page__week-nav">
-      <button class="btn btn-secondary btn-sm" type="button" (click)="prevWeek()" aria-label="Previous week">‹</button>
-      <span class="analytics-page__week-label">{{ weekLabel() }}</span>
-      <button class="btn btn-secondary btn-sm" type="button" (click)="nextWeek()" aria-label="Next week">›</button>
-      @if (!isCurrentWeek()) {
-        <button class="btn btn-ghost btn-sm" type="button" (click)="goToday()">Today</button>
-      }
-    </div>
+    <app-week-nav
+      [label]="weekLabel()"
+      [isCurrentWeek]="isCurrentWeek()"
+      (prev)="prevWeek()"
+      (next)="nextWeek()"
+      (goToday)="goToday()"
+    />
   </div>
 
   <!-- Content -->
   @if (analytics().entryCount === 0) {
-    <div class="analytics-page__empty">
-      <p class="analytics-page__empty-title">No entries this week</p>
-      <p class="analytics-page__empty-sub">Log time on the <a routerLink="/board">Week board</a> to see analytics here.</p>
-    </div>
+    <app-empty-state
+      title="No entries this week"
+      description="Log time on the Week board to see analytics here"
+    />
   } @else {
     <app-week-summary [analytics]="analytics()" />
     <app-days-summary [days]="analytics().days" />
     <app-projects-summary [projects]="analytics().projects" />
     <app-tasks-summary [tasks]="analytics().tasks" />
   }
+
 </div>

@@ -1,0 +1,44 @@
+<!-- Backdrop -->
+<div
+  class="components__elements__modal-shell fixed inset-0 z-50 flex items-center justify-center p-4"
+  style="background: rgba(0,0,0,0.4)"
+  (click)="closed.emit()"
+></div>
+
+<!-- Panel -->
+<div
+  #panel
+  class="components__elements__modal-shell__panel fixed z-50 inset-0 flex items-center justify-center p-4 pointer-events-none"
+>
+  <div
+    class="w-full max-w-md rounded-xl p-6 flex flex-col gap-5 pointer-events-auto"
+    style="background: var(--color-surface); box-shadow: var(--shadow-modal)"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="'modal-title-' + title"
+    tabindex="-1"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <h2
+        class="text-base font-semibold"
+        style="color: var(--color-text)"
+        [id]="'modal-title-' + title"
+      >{{ title }}</h2>
+      <button
+        type="button"
+        class="btn btn-ghost btn-sm"
+        aria-label="Close dialog"
+        (click)="closed.emit()"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <ng-content />
+  </div>
+</div>

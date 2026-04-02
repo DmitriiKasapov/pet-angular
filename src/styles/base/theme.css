@@ -15,7 +15,7 @@
 
   --color-text:       #212529;
   --color-text-muted: #868e96;
-  --color-text-light: #adb5bd;
+  --color-text-light: #868e96;
 
   /* --- Colors: status --- */
   --color-status-planning: #74c0fc;
@@ -24,7 +24,7 @@
 
   --color-status-progress: #ffa94d;
   --color-status-progress-bg: #fff4e6;
-  --color-status-progress-text: #e67700;
+  --color-status-progress-text: #b85c00;
 
   --color-status-done: #69db7c;
   --color-status-done-bg: #ebfbee;

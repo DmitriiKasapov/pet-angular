@@ -1,22 +1,46 @@
 @if (task() === null) {
-  <div class="flex flex-col items-center justify-center min-h-[50vh] gap-4">
-    <p class="text-text-muted text-sm">Task not found.</p>
-    <a routerLink="/projects" class="btn btn-secondary text-sm">Back to Projects</a>
+  <div class="flex flex-col items-center justify-center min-h-[50vh]">
+    <app-empty-state title="Task not found" description="This task does not exist or has been removed">
+      <a routerLink="/projects" class="btn btn-secondary text-sm">Back to Projects</a>
+    </app-empty-state>
   </div>
 } @else {
-  <div class="max-w-3xl mx-auto px-4 py-6">
+  <div class="task-detail-page max-w-3xl mx-auto px-4 py-6">
+
+    <!-- Task header -->
     <app-task-header
       [task]="task()!"
       (statusChange)="onStatusChange($event)"
     />
 
-    <!-- Add comment -->
-    <div class="mt-6">
-      <h2 class="text-base font-semibold text-text mb-4">New Comment</h2>
+    <!-- Work log -->
+    <app-worklog-list [entries]="worklogEntries()" />
+
+    <!-- Log work form -->
+    @if (showWorklogForm()) {
+      <app-worklog-form
+        (submitted)="onWorklogSubmit($event)"
+        (cancelled)="showWorklogForm.set(false)"
+      />
+    } @else {
+      <div class="mb-6">
+        <button class="btn btn-secondary text-sm" (click)="showWorklogForm.set(true)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Log Work
+        </button>
+      </div>
+    }
+
+    <!-- New comment -->
+    <section class="mt-6">
+      <h2 class="text-base font-semibold mb-4" style="color: var(--color-text)">New Comment</h2>
       <app-comment-form (submitted)="onCommentSubmit($event)" />
-    </div>
+    </section>
 
     <!-- Comments list -->
     <app-comments-section [comments]="comments()" />
+
   </div>
 }

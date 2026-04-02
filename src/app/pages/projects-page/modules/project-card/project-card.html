@@ -1,27 +1,19 @@
 <a
   [routerLink]="['/projects', summary.project.id]"
   class="projects-page__modules__project-card flex gap-3 py-3 rounded-md transition-colors"
-  style="color: inherit; text-decoration: none"
-  onmouseenter="this.style.background = 'var(--color-bg-hover)'"
-  onmouseleave="this.style.background = ''"
 >
   <!-- Color code badge -->
   <span
     class="text-xs font-mono font-semibold px-2 py-0.5 rounded shrink-0 h-max"
     [style.background-color]="summary.project.color + '22'"
     [style.color]="summary.project.color"
-    >{{ summary.project.code }}</span
-  >
+  >{{ summary.project.code }}</span>
 
   <!-- Name + description -->
   <div class="flex flex-col min-w-0">
-    <span class="text-sm font-semibold" style="color: var(--color-text)">{{
-      summary.project.name
-    }}</span>
+    <span class="text-sm font-semibold" style="color: var(--color-text)">{{ summary.project.name }}</span>
     @if (summary.project.description) {
-      <span class="text-xs truncate" style="color: var(--color-text-muted)">{{
-        summary.project.description
-      }}</span>
+      <span class="text-xs truncate" style="color: var(--color-text-muted)">{{ summary.project.description }}</span>
     }
   </div>
 </a>

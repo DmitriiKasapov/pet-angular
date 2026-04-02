@@ -3,25 +3,14 @@
   <!-- Search zone -->
   <div class="search-zone">
     <div class="flex items-center gap-3">
-      <div class="relative grow">
-        <svg
-          class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
-          style="color: var(--color-text-light)"
-          width="16" height="16" viewBox="0 0 16 16" fill="none"
-        >
-          <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M10.5 10.5l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-        <input
-          type="search"
-          class="input pl-9"
-          placeholder="Search tasks by code or title…"
+      <div class="grow">
+        <app-search-input
           [value]="query"
-          (input)="onSearch($event)"
-          aria-label="Search tasks"
+          placeholder="Search tasks by code or title…"
+          ariaLabel="Search tasks"
+          (valueChange)="searchChange.emit($event)"
         />
       </div>
-
       <button class="btn btn-primary shrink-0" (click)="openForm.emit()">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -31,6 +20,7 @@
     </div>
   </div>
 
+  <!-- Results -->
   @if (summaries.length === 0 && query) {
     <app-empty-state title="No tasks found" description="Try a different search query" />
   } @else if (summaries.length === 0) {
@@ -51,4 +41,5 @@
       (pageChange)="page.set($event)"
     />
   }
+
 </section>

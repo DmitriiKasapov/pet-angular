@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Project } from '../../../../models/project.model';
+import { ModalShellComponent } from '../../../../components/elements/modal-shell/modal-shell';
 
 const PRESET_COLORS = [
   '#3b5bdb', '#2f9e44', '#e67700', '#c92a2a',
@@ -10,7 +11,7 @@ const PRESET_COLORS = [
 @Component({
   selector: 'app-project-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ModalShellComponent],
   templateUrl: './project-form.html',
 })
 export class ProjectFormComponent {

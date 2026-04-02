@@ -1,29 +1,57 @@
 <div class="task-detail-page__modules__worklog-form border border-border rounded-lg p-4 bg-bg mb-6">
-  <h3 class="text-sm font-semibold text-text mb-3">Log Work</h3>
-  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-wrap gap-3 items-end">
+  <h3 class="text-sm font-semibold mb-3" style="color: var(--color-text)">Log Work</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-wrap gap-3 items-end" novalidate>
+
     <div class="flex flex-col gap-1 min-w-[140px]">
-      <label class="text-xs text-text-muted" for="wl-date">Date</label>
+      <label class="text-xs" for="wl-date" style="color: var(--color-text-muted)">Date</label>
       <input id="wl-date" type="date" formControlName="date" class="input text-sm" />
     </div>
 
     <div class="flex flex-col gap-1 w-24">
-      <label class="text-xs text-text-muted" for="wl-start">Start (h)</label>
-      <input id="wl-start" type="number" formControlName="startHour" min="0" max="23" step="0.5" class="input text-sm" />
+      <label class="text-xs" for="wl-start" style="color: var(--color-text-muted)">Start (h)</label>
+      <input
+        id="wl-start"
+        type="number"
+        formControlName="startHour"
+        min="0"
+        max="23"
+        step="0.5"
+        class="input text-sm"
+        aria-describedby="wl-start-hint"
+      />
+      <span id="wl-start-hint" class="sr-only">Enter start hour from 0 to 23</span>
     </div>
 
     <div class="flex flex-col gap-1 w-28">
-      <label class="text-xs text-text-muted" for="wl-duration">Duration (h)</label>
-      <input id="wl-duration" type="number" formControlName="durationHours" min="0.5" max="24" step="0.5" class="input text-sm" />
+      <label class="text-xs" for="wl-duration" style="color: var(--color-text-muted)">Duration (h)</label>
+      <input
+        id="wl-duration"
+        type="number"
+        formControlName="durationHours"
+        min="0.5"
+        max="24"
+        step="0.5"
+        class="input text-sm"
+        aria-describedby="wl-duration-hint"
+      />
+      <span id="wl-duration-hint" class="sr-only">Enter duration from 0.5 to 24 hours</span>
     </div>
 
     <div class="flex flex-col gap-1 flex-1 min-w-[160px]">
-      <label class="text-xs text-text-muted" for="wl-comment">Comment</label>
-      <input id="wl-comment" type="text" formControlName="comment" placeholder="Optional note" class="input text-sm" />
+      <label class="text-xs" for="wl-comment" style="color: var(--color-text-muted)">Comment</label>
+      <input
+        id="wl-comment"
+        type="text"
+        formControlName="comment"
+        placeholder="Optional note"
+        class="input text-sm"
+      />
     </div>
 
     <div class="flex gap-2">
       <button type="submit" [disabled]="form.invalid" class="btn btn-primary text-sm">Add</button>
       <button type="button" (click)="cancelled.emit()" class="btn btn-secondary text-sm">Cancel</button>
     </div>
+
   </form>
 </div>

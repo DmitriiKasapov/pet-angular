@@ -1,15 +1,15 @@
 import { Component, computed, Input, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { TaskComment } from '../../../../models/task-comment.model';
 import { CommentsService } from '../../../../core/services/comments.service';
 import { PaginationComponent } from '../../../../components/elements/pagination/pagination';
+import { CommentCardComponent } from '../../modules/comment-card/comment-card';
 
 const PAGE_SIZE = 6;
 
 @Component({
   selector: 'app-comments-section',
   standalone: true,
-  imports: [FormsModule, PaginationComponent],
+  imports: [PaginationComponent, CommentCardComponent],
   templateUrl: './comments-section.html',
 })
 export class CommentsSectionComponent {
@@ -23,33 +23,17 @@ export class CommentsSectionComponent {
     return this.comments.slice(start, start + PAGE_SIZE);
   });
 
-  editingId = signal<string | null>(null);
-  editingText = signal('');
-
   constructor(private readonly commentsService: CommentsService) {}
 
-  startEdit(comment: TaskComment): void {
-    this.editingId.set(comment.id);
-    this.editingText.set(comment.text);
+  onSaved(comment: TaskComment, newText: string): void {
+    this.commentsService.update(comment.id, newText);
+    comment.text = newText;
   }
 
-  saveEdit(comment: TaskComment): void {
-    const text = this.editingText().trim();
-    if (!text) return;
-    this.commentsService.update(comment.id, text);
-    comment.text = text;
-    this.editingId.set(null);
-  }
-
-  cancelEdit(): void {
-    this.editingId.set(null);
-  }
-
-  delete(comment: TaskComment): void {
+  onDeleted(comment: TaskComment): void {
     this.commentsService.delete(comment.id);
     const idx = this.comments.indexOf(comment);
     if (idx !== -1) this.comments.splice(idx, 1);
-    // adjust page if current page becomes empty
     const totalPages = Math.ceil(this.comments.length / PAGE_SIZE);
     if (this.page() > totalPages && totalPages > 0) this.page.set(totalPages);
   }

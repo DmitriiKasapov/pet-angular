@@ -1,16 +1,17 @@
 import { Component, signal, computed } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AnalyticsService } from '../../core/services/analytics.service';
 import { WeekSummaryComponent } from './blocks/week-summary/week-summary';
 import { DaysSummaryComponent } from './blocks/days-summary/days-summary';
 import { ProjectsSummaryComponent } from './blocks/projects-summary/projects-summary';
 import { TasksSummaryComponent } from './blocks/tasks-summary/tasks-summary';
+import { WeekNavComponent } from '../../components/elements/week-nav/week-nav';
+import { EmptyStateComponent } from '../../components/elements/empty-state/empty-state';
 import { getWeekStart, addDays, formatDate } from '../../core/utils/board-utils';
 
 @Component({
   selector: 'app-analytics-page',
   standalone: true,
-  imports: [RouterLink, WeekSummaryComponent, DaysSummaryComponent, ProjectsSummaryComponent, TasksSummaryComponent],
+  imports: [WeekSummaryComponent, DaysSummaryComponent, ProjectsSummaryComponent, TasksSummaryComponent, WeekNavComponent, EmptyStateComponent],
   templateUrl: './analytics-page.html',
 })
 export class AnalyticsPageComponent {

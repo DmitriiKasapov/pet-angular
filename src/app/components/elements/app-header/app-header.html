@@ -1,7 +1,8 @@
 <header class="components__elements__app-header">
   <div class="header-inner">
+
     <!-- Logo -->
-    <a routerLink="/projects" class="header-logo" aria-label="DevLog home">
+    <a routerLink="/board" class="header-logo" aria-label="DevLog — go to home">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
         <rect x="2" y="2" width="8" height="8" rx="2" fill="var(--color-primary)"/>
         <rect x="12" y="2" width="8" height="8" rx="2" fill="var(--color-primary)" opacity="0.5"/>
@@ -11,23 +12,33 @@
       <span>DevLog</span>
     </a>
 
-    <!-- Nav -->
+    <!-- Main navigation -->
     <nav aria-label="Main navigation">
       <a
         routerLink="/board"
         routerLinkActive="nav-link--active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        #boardLink="routerLinkActive"
         class="nav-link"
+        [attr.aria-current]="boardLink.isActive ? 'page' : null"
       >Week</a>
       <a
         routerLink="/projects"
         routerLinkActive="nav-link--active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        #projectsLink="routerLinkActive"
         class="nav-link"
+        [attr.aria-current]="projectsLink.isActive ? 'page' : null"
       >Projects</a>
       <a
         routerLink="/analytics"
         routerLinkActive="nav-link--active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        #analyticsLink="routerLinkActive"
         class="nav-link"
+        [attr.aria-current]="analyticsLink.isActive ? 'page' : null"
       >Analytics</a>
     </nav>
+
   </div>
 </header>

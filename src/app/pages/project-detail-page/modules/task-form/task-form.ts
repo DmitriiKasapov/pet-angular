@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task, TaskStatus } from '../../../../models/task.model';
+import { ModalShellComponent } from '../../../../components/elements/modal-shell/modal-shell';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ModalShellComponent],
   templateUrl: './task-form.html',
 })
 export class TaskFormComponent {

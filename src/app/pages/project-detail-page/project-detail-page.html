@@ -2,20 +2,21 @@
 
   <!-- Back link -->
   <a routerLink="/projects" class="inline-flex items-center gap-1.5 text-sm btn-ghost btn w-fit -ml-2">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     All Projects
   </a>
 
   @if (project() === null) {
-    <!-- Not found -->
-    <div class="flex flex-col items-center gap-4 py-16 text-center">
-      <p class="text-base font-medium" style="color: var(--color-text)">Project not found</p>
-      <p class="text-sm" style="color: var(--color-text-muted)">This project does not exist or has been removed</p>
+    <app-empty-state
+      title="Project not found"
+      description="This project does not exist or has been removed"
+    >
       <a routerLink="/projects" class="btn btn-primary">Back to Projects</a>
-    </div>
+    </app-empty-state>
   } @else {
+
     <!-- Project header -->
     <app-project-header
       [project]="project()!"
@@ -24,12 +25,23 @@
     />
 
     <!-- Tabs -->
-    <div class="flex gap-1 border-b" style="border-color: var(--color-border)">
-      @for (tab of tabs; track tab.value) {
+    <div
+      class="flex gap-1 border-b"
+      style="border-color: var(--color-border)"
+      role="tablist"
+      aria-label="Project sections"
+      (keydown)="onTabKeydown($event)"
+    >
+      @for (tab of tabs; track tab.value; let i = $index) {
         <button
           class="px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px"
           [style.border-color]="activeTab() === tab.value ? 'var(--color-primary)' : 'transparent'"
           [style.color]="activeTab() === tab.value ? 'var(--color-primary)' : 'var(--color-text-muted)'"
+          role="tab"
+          [attr.aria-selected]="activeTab() === tab.value"
+          [attr.tabindex]="activeTab() === tab.value ? 0 : -1"
+          [id]="'tab-' + tab.value"
+          [attr.aria-controls]="'tabpanel-' + tab.value"
           (click)="activeTab.set(tab.value)"
         >{{ tab.label }}</button>
       }
@@ -37,15 +49,26 @@
 
     <!-- Tab content -->
     @if (activeTab() === 'tasks') {
-
-      <app-task-list
-        [summaries]="filteredSummaries()"
-        [query]="query()"
-        (searchChange)="query.set($event)"
-        (openForm)="showForm.set(true)"
-      />
+      <div
+        role="tabpanel"
+        id="tabpanel-tasks"
+        aria-labelledby="tab-tasks"
+      >
+        <app-task-list
+          [summaries]="filteredSummaries()"
+          [query]="query()"
+          (searchChange)="query.set($event)"
+          (openForm)="showForm.set(true)"
+        />
+      </div>
     } @else {
-      <app-project-analytics [summaries]="allTaskSummaries()" />
+      <div
+        role="tabpanel"
+        id="tabpanel-analytics"
+        aria-labelledby="tab-analytics"
+      >
+        <app-project-analytics [summaries]="allTaskSummaries()" />
+      </div>
     }
 
     <!-- Task form modal -->
@@ -55,5 +78,6 @@
         (cancelled)="showForm.set(false)"
       />
     }
+
   }
 </div>

@@ -1,88 +1,80 @@
-<!-- Backdrop -->
-<div
-  class="project-detail-page__modules__task-form fixed inset-0 z-50 flex items-center justify-center p-4"
-  style="background: rgba(0,0,0,0.4)"
-  (click)="cancelled.emit()"
->
-  <!-- Modal -->
-  <div
-    class="w-full max-w-md rounded-xl p-6 flex flex-col gap-5"
-    style="background: var(--color-surface); box-shadow: var(--shadow-modal)"
-    (click)="$event.stopPropagation()"
-  >
-    <div class="flex items-center justify-between">
-      <h2 class="text-base font-semibold" style="color: var(--color-text)">New Task</h2>
-      <button type="button" class="btn btn-ghost btn-sm" (click)="cancelled.emit()" aria-label="Close">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
+<app-modal-shell title="New Task" (closed)="cancelled.emit()">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4" novalidate>
+
+    <!-- Title -->
+    <div class="input-field">
+      <label class="input-label" for="task-title">
+        Title <span aria-hidden="true" style="color: var(--color-danger)">*</span>
+        <span class="sr-only">(required)</span>
+      </label>
+      <input
+        id="task-title"
+        formControlName="title"
+        class="input"
+        [class.input-error]="isInvalid('title')"
+        placeholder="e.g. Implement login page"
+        autocomplete="off"
+        aria-describedby="task-title-error"
+        [attr.aria-invalid]="isInvalid('title') || null"
+      />
+      @if (isInvalid('title')) {
+        <span id="task-title-error" class="input-error-msg" role="alert">
+          Title is required (min 3 characters)
+        </span>
+      }
     </div>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4" novalidate>
+    <!-- Description -->
+    <div class="input-field">
+      <label class="input-label" for="task-desc">Description</label>
+      <textarea
+        id="task-desc"
+        formControlName="description"
+        class="input resize-none"
+        rows="2"
+        placeholder="Short description of what needs to be done"
+      ></textarea>
+    </div>
 
-      <!-- Title -->
-      <div class="input-field">
-        <label class="input-label" for="task-title">Title <span style="color:var(--color-danger)">*</span></label>
-        <input
-          id="task-title"
-          formControlName="title"
-          class="input"
-          [class.input-error]="isInvalid('title')"
-          placeholder="e.g. Implement login page"
-          autocomplete="off"
-        />
-        @if (isInvalid('title')) {
-          <span class="input-error-msg">Title is required (min 3 characters)</span>
+    <!-- Status -->
+    <div class="input-field">
+      <label class="input-label" for="task-status">Status</label>
+      <select id="task-status" formControlName="status" class="input">
+        @for (opt of statusOptions; track opt.value) {
+          <option [value]="opt.value">{{ opt.label }}</option>
         }
-      </div>
+      </select>
+    </div>
 
-      <!-- Description -->
-      <div class="input-field">
-        <label class="input-label" for="task-desc">Description <span style="color:var(--color-text-light)">optional</span></label>
-        <textarea
-          id="task-desc"
-          formControlName="description"
-          class="input resize-none"
-          rows="2"
-          placeholder="Short description of what needs to be done"
-        ></textarea>
-      </div>
+    <!-- Estimated hours -->
+    <div class="input-field">
+      <label class="input-label" for="task-estimate">Estimated hours</label>
+      <input
+        id="task-estimate"
+        type="number"
+        formControlName="estimatedHours"
+        class="input"
+        [class.input-error]="isInvalid('estimatedHours')"
+        placeholder="e.g. 8"
+        min="0.5"
+        step="0.5"
+        aria-describedby="task-estimate-error"
+        [attr.aria-invalid]="isInvalid('estimatedHours') || null"
+      />
+      @if (isInvalid('estimatedHours')) {
+        <span id="task-estimate-error" class="input-error-msg" role="alert">
+          Must be between 0.5 and 999
+        </span>
+      }
+    </div>
 
-      <!-- Status -->
-      <div class="input-field">
-        <label class="input-label" for="task-status">Status</label>
-        <select id="task-status" formControlName="status" class="input">
-          @for (opt of statusOptions; track opt.value) {
-            <option [value]="opt.value">{{ opt.label }}</option>
-          }
-        </select>
-      </div>
+    <!-- Actions -->
+    <div class="flex justify-end gap-2 pt-1">
+      <button type="button" class="btn btn-secondary" (click)="cancelled.emit()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Create Task</button>
+    </div>
 
-      <!-- Estimated hours -->
-      <div class="input-field">
-        <label class="input-label" for="task-estimate">Estimated hours <span style="color:var(--color-text-light)">optional</span></label>
-        <input
-          id="task-estimate"
-          type="number"
-          formControlName="estimatedHours"
-          class="input"
-          [class.input-error]="isInvalid('estimatedHours')"
-          placeholder="e.g. 8"
-          min="0.5"
-          step="0.5"
-        />
-        @if (isInvalid('estimatedHours')) {
-          <span class="input-error-msg">Must be between 0.5 and 999</span>
-        }
-      </div>
+  </form>
 
-      <!-- Actions -->
-      <div class="flex justify-end gap-2 pt-1">
-        <button type="button" class="btn btn-secondary" (click)="cancelled.emit()">Cancel</button>
-        <button type="submit" class="btn btn-primary">Create Task</button>
-      </div>
-
-    </form>
-  </div>
-</div>
+</app-modal-shell>

@@ -7,6 +7,7 @@ import { Task } from '../../models/task.model';
 import { Project } from '../../models/project.model';
 import { BoardGridComponent } from './blocks/board-grid/board-grid';
 import { BoardWorklogFormComponent } from './modules/board-worklog-form/board-worklog-form';
+import { WeekNavComponent } from '../../components/elements/week-nav/week-nav';
 import {
   getWeekStart,
   addDays,
@@ -26,7 +27,7 @@ const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 @Component({
   selector: 'app-weekly-board-page',
   standalone: true,
-  imports: [BoardGridComponent, BoardWorklogFormComponent],
+  imports: [BoardGridComponent, BoardWorklogFormComponent, WeekNavComponent],
   templateUrl: './weekly-board-page.html',
 })
 export class WeeklyBoardPageComponent implements OnInit {

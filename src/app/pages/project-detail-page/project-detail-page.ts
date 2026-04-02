@@ -1,5 +1,6 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { EmptyStateComponent } from '../../components/elements/empty-state/empty-state';
 import { ProjectsService } from '../../core/services/projects.service';
 import { TasksService } from '../../core/services/tasks.service';
 import { WorklogService } from '../../core/services/worklog.service';
@@ -20,6 +21,7 @@ import { DetailTab, TaskSummary } from './project-detail-page.types';
     TaskListComponent,
     ProjectAnalyticsComponent,
     TaskFormComponent,
+    EmptyStateComponent,
   ],
   templateUrl: './project-detail-page.html',
 })
@@ -69,6 +71,17 @@ export class ProjectDetailPageComponent implements OnInit {
     this.project.set(this.projectsService.getById(id) ?? null);
     if (this.project()) {
       this.tasks.set(this.tasksService.getByProject(id));
+    }
+  }
+
+  onTabKeydown(event: KeyboardEvent): void {
+    const idx = this.tabs.findIndex(t => t.value === this.activeTab());
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      this.activeTab.set(this.tabs[(idx + 1) % this.tabs.length].value);
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      this.activeTab.set(this.tabs[(idx - 1 + this.tabs.length) % this.tabs.length].value);
     }
   }
 

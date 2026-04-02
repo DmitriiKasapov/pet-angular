@@ -1,0 +1,38 @@
+<div class="task-detail-page__modules__comment-card border border-border rounded-lg px-4 py-3 bg-surface">
+
+  @if (isEditing()) {
+    <!-- Edit mode -->
+    <textarea
+      class="input text-sm resize-none w-full"
+      rows="3"
+      [ngModel]="editText()"
+      (ngModelChange)="editText.set($event)"
+    ></textarea>
+    <div class="flex gap-2 mt-2">
+      <button class="btn btn-primary btn-sm" type="button" (click)="save()">Save</button>
+      <button class="btn btn-secondary btn-sm" type="button" (click)="cancelEdit()">Cancel</button>
+    </div>
+  } @else {
+    <!-- View mode -->
+    <p class="text-sm leading-relaxed" style="color: var(--color-text)">{{ comment.text }}</p>
+    <div class="flex items-center justify-between mt-2">
+      <span class="text-xs" style="color: var(--color-text-muted)">{{ comment.createdAt }}</span>
+      <div class="flex gap-1">
+        <button
+          class="btn btn-ghost btn-sm"
+          type="button"
+          aria-label="Edit comment"
+          (click)="startEdit()"
+        >Edit</button>
+        <button
+          class="btn btn-ghost btn-sm"
+          type="button"
+          style="color: var(--color-danger)"
+          aria-label="Delete comment"
+          (click)="deleted.emit()"
+        >Delete</button>
+      </div>
+    </div>
+  }
+
+</div>
